@@ -1,11 +1,9 @@
 /**
  * @author Spencillian
- * @author Good ideas are worth taking note of. Great ideas are a mix of your good idea.
- * 
+ * @summary Good ideas are worth taking note of. Great ideas are a mix of your good idea.
  * @format
- * @flow strict-local
+ * @flow
  */
-
 import 'react-native-gesture-handler';
 
 import React from 'react'
@@ -15,8 +13,7 @@ import PropTypes from "prop-types";
 
 import NoteList from './components/Views/NoteList'
 import InsertNote from "./components/Views/InsertNote";
-
-// TODO: Add view for EditNote.js
+import EditNote from "./components/Views/EditNote";
 
 function NoteListView({ route, navigation }){
   return(
@@ -30,7 +27,11 @@ function InsertNoteView({ navigation }){
   ) 
 }
 
-// TODO: Add param checker for EditNoteView
+function EditNoteView({ route, navigation }){
+  return(
+    <EditNote nav={navigation} route={route}/>
+  )
+}
 
 NoteListView.propTypes = {
   navigation: PropTypes.object.isRequired,
@@ -41,9 +42,13 @@ InsertNoteView.propTypes = {
   navigation: PropTypes.object.isRequired
 }
 
+EditNoteView.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired
+}
+
 const Stack = createStackNavigator()
 
-// TODO: Add EditNoteView to Stack Navigator
 function App() {
   return (
     <NavigationContainer>
@@ -56,6 +61,11 @@ function App() {
         <Stack.Screen
           name='InsertNoteView'
           component={InsertNoteView}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name='EditNoteView'
+          component={EditNoteView}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

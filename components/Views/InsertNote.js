@@ -1,5 +1,6 @@
 import * as React from "react";
 import { View, Text, TextInput, StyleSheet, Dimensions, TouchableHighlight } from "react-native";
+
 import PropTypes from "prop-types";
 
 class InsertNote extends React.Component{

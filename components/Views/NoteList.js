@@ -27,7 +27,9 @@ class NoteList extends React.Component {
         count: state.count + 1
       })
     }else if(props.route.params && props.route.params.mode === 'edit'){
-      return null
+      const newData = state.notes.map(item => props.route.params.note.id === item.id ? props.route.params.note : item)
+      console.log(newData)
+      return { notes: newData }
     }
     return null
   }
@@ -37,7 +39,7 @@ class NoteList extends React.Component {
       rowMap[rowKey].closeRow();
     }
     const newData = this.state.notes.filter(item => item.id !== rowKey)
-    // TODO: Check the possiblities of animating this
+    // TODO: Check the possibilities of animating this
     this.setState({ notes: newData })
   }
 
@@ -58,7 +60,7 @@ class NoteList extends React.Component {
             <View style={s.listItemContainer}>
               <TouchableOpacity 
                 style={s.listItemEditButton}
-                onPress={() => this.props.nav.navigate()}>
+                onPress={() => this.props.nav.navigate('EditNoteView', {...data.item})}>
                 <Text style={s.listItemEditButtonText}>Edit</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -68,7 +70,7 @@ class NoteList extends React.Component {
               </TouchableOpacity>
             </View>
           )}
-          keyExtractor={item => `${item.title}${item.id}`}
+          keyExtractor={item => `${item.title}${item.text}${item.id}`}
           rightOpenValue={-75}
           leftOpenValue={75}
           previewRowKey={'0'}
